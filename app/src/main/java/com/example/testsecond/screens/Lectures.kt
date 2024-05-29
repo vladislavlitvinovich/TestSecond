@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.testsecond.functions.drawLectures
+import com.example.testsecond.functions.DrawLectures
 import com.example.testsecond.navigation.NavRoutes
 import com.example.testsecond.R
 
@@ -75,7 +75,7 @@ fun LecturesDraw(navController: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            drawLectures(i)
+            DrawLectures(i)
         }
 
     }

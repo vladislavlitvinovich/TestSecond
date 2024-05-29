@@ -16,7 +16,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.testsecond.functions.practiceAnswerDraw
+import com.example.testsecond.functions.PracticeAnswerDraw
 import com.example.testsecond.navigation.NavRoutes
 import com.example.testsecond.R
 
@@ -70,7 +70,7 @@ fun PracticeView(navController: NavController) {
                     )
                 }
             }
-            practiceAnswerDraw()
+            PracticeAnswerDraw()
         }
     }
 }

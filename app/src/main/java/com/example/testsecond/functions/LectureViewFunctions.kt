@@ -51,28 +51,8 @@ fun getLectureContent(): String {
     return stringResource(R.string.lecture_content)
 }
 
-//@Composable
-//fun practiceAnswerDraw() {
-//    for (i: Int in 1..4) {
-//        Card(
-//            modifier = Modifier
-//                .fillMaxWidth()
-//                .padding(5.dp)
-//                .clickable {
-//
-//                }
-//        ) {
-//            Text(
-//                text = "Вариант ответа $i",
-//                textAlign = TextAlign.Center,
-//                modifier = Modifier.padding(10.dp)
-//            )
-//        }
-//    }
-//}
-
 @Composable
-fun practiceAnswerDraw() {
+fun PracticeAnswerDraw() {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -120,7 +100,7 @@ fun practiceAnswerDraw() {
 }
 
 @Composable
-fun drawLectures(i: Int){
+fun DrawLectures(i: Int){
     Card {
         Text(
             text = stringResource(id = R.string.lecture1 + i),

@@ -1,19 +1,30 @@
 package com.example.testsecond.screens
 
+import android.annotation.SuppressLint
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.testsecond.navigation.NavRoutes
+import com.google.firebase.auth.FirebaseAuth
+import androidx.compose.ui.platform.LocalContext
 
+@SuppressLint("UnrememberedMutableState")
 @Composable
 fun Registration(navController: NavController) {
+    val context = LocalContext.current
+    var login = mutableStateOf("")
+    var password = mutableStateOf("")
+    var password_repeat = mutableStateOf("")
+    lateinit var auth: FirebaseAuth
     Card(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -31,10 +42,35 @@ fun Registration(navController: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            TextField(value = "Логин", onValueChange = {}, Modifier.padding(5.dp))
-            TextField(value = "Пароль", onValueChange = {}, Modifier.padding(5.dp))
-            TextField(value = "Повторите пароль", onValueChange = {}, Modifier.padding(5.dp))
-            Button(onClick = { /*TODO*/ }, Modifier.padding(5.dp)) {
+            Text(text = "Логин")
+            TextField(value = login.value, onValueChange = { newText ->
+                login.value = newText
+            }, Modifier.padding(5.dp))
+            Text(text = "Пароль")
+            TextField(value = password.value, onValueChange = {newText ->
+                password.value = newText
+
+            }, Modifier.padding(5.dp))
+            Text(text = "Повторите пароль")
+            TextField(value = password_repeat.value, onValueChange = {newText ->
+                password_repeat.value = newText
+
+            }, Modifier.padding(5.dp))
+            Button(
+                onClick = {
+                    if(password.value != password_repeat.value){
+                        Toast.makeText(
+                            context,
+                            "Пароли не совпадают",
+                            Toast.LENGTH_SHORT,
+                        ).show()
+                    }
+                    else{
+                        auth.createUserWithEmailAndPassword(login.value, password.value)
+                    }
+                },
+                Modifier.padding(5.dp)
+            ) {
                 Text(text = "Зарегистрироваться")
             }
         }
