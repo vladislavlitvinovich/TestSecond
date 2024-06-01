@@ -48,7 +48,7 @@ fun switchTheme(id: Int?): String {
 
 @Composable
 fun getLectureContent(): String {
-    return stringResource(R.string.lecture_content)
+    return stringResource(R.string.lecture_content1)
 }
 
 @Composable
@@ -112,3 +112,4 @@ fun DrawLectures(i: Int){
         Modifier.padding(5.dp)
     )
 }
+

@@ -64,7 +64,7 @@ fun PracticeView(navController: NavController) {
             ) {
                 for (i: Int in 0..10) {
                     Text(
-                        stringResource(id = R.string.practice_content),
+                        stringResource(id = R.string.practice_content1),
                         textAlign = TextAlign.Center,
                         modifier = Modifier.padding(20.dp)
                     )

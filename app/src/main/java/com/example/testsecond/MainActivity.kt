@@ -2,6 +2,7 @@ package com.example.testsecond
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
@@ -9,7 +10,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
@@ -24,9 +24,9 @@ import com.example.testsecond.screens.LectureView
 import com.example.testsecond.screens.Lectures
 import com.example.testsecond.screens.PracticeView
 import com.example.testsecond.screens.Registration
-import com.example.testsecond.authorization.EmailPasswordActivity
 import androidx.compose.runtime.mutableStateOf
-import com.google.firebase.auth.FirebaseAuth
+import com.example.testsecond.authorization.fireAuth
+import com.google.firebase.FirebaseApp
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +36,8 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     modifier = Modifier.fillMaxSize()
                 ) {
-                    toTheReg()
+                    FirebaseApp.initializeApp(this)
+                    toTheReg(this)
                 }
             }
         }
@@ -44,11 +45,11 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun toTheReg() {
+fun toTheReg(context: ComponentActivity) {
     val navController = rememberNavController()
-    MainAuthorization(navController = navController)
+    MainAuthorization(navController = navController, context)
     NavHost(navController, startDestination = NavRoutes.Authorization.route) {
-        composable(NavRoutes.Authorization.route) { MainAuthorization(navController = navController) }
+        composable(NavRoutes.Authorization.route) { /*MainAuthorization(navController = navController)*/ }
         composable(NavRoutes.Registration.route) { Registration(navController = navController) }
         composable(NavRoutes.Lectures.route) { Lectures(navController = navController) }
         composable(
@@ -69,10 +70,9 @@ fun toTheReg() {
 
 @SuppressLint("UnrememberedMutableState")
 @Composable
-fun MainAuthorization(navController: NavController) {
+fun MainAuthorization(navController: NavController, context: ComponentActivity) {
     var login = mutableStateOf("")
     var password = mutableStateOf("")
-    lateinit var auth: FirebaseAuth
     Card(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -82,17 +82,23 @@ fun MainAuthorization(navController: NavController) {
             verticalArrangement = Arrangement.Center
         ) {
             Text(text = "Логин")
-            TextField(value = login.value, onValueChange = { newText ->
+            TextField(value = login.value, singleLine = true, onValueChange = { newText ->
                 login.value = newText
             })
             Text(text = "Пароль")
-            TextField(value = password.value, onValueChange = { newText ->
+            TextField(value = password.value, singleLine = true, onValueChange = { newText ->
                 password.value = newText
             })
             Button(onClick = {
-                auth.signInWithEmailAndPassword(login.value, password.value)
-                //signIn(login, password)
-//                navController.navigate(NavRoutes.Lectures.route)
+                if(login.value.isEmpty() || password.value.isEmpty()){
+                    Toast.makeText(
+                        context,
+                        "Пожалуйста, заполните поля",
+                        Toast.LENGTH_SHORT,
+                    ).show()
+                } else{
+                    fireAuth(login.value, password.value, context, navController)
+                }
             }) {
                 Text(text = "Войти")
             }

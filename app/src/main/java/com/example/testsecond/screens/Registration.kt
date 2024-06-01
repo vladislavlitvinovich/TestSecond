@@ -16,6 +16,7 @@ import androidx.navigation.NavController
 import com.example.testsecond.navigation.NavRoutes
 import com.google.firebase.auth.FirebaseAuth
 import androidx.compose.ui.platform.LocalContext
+import com.example.testsecond.authorization.fireReg
 
 @SuppressLint("UnrememberedMutableState")
 @Composable
@@ -47,26 +48,25 @@ fun Registration(navController: NavController) {
                 login.value = newText
             }, Modifier.padding(5.dp))
             Text(text = "Пароль")
-            TextField(value = password.value, onValueChange = {newText ->
+            TextField(value = password.value, onValueChange = { newText ->
                 password.value = newText
 
             }, Modifier.padding(5.dp))
             Text(text = "Повторите пароль")
-            TextField(value = password_repeat.value, onValueChange = {newText ->
+            TextField(value = password_repeat.value, onValueChange = { newText ->
                 password_repeat.value = newText
 
             }, Modifier.padding(5.dp))
             Button(
                 onClick = {
-                    if(password.value != password_repeat.value){
+                    if (password.value != password_repeat.value) {
                         Toast.makeText(
                             context,
                             "Пароли не совпадают",
                             Toast.LENGTH_SHORT,
                         ).show()
-                    }
-                    else{
-                        auth.createUserWithEmailAndPassword(login.value, password.value)
+                    } else {
+                        fireReg(login.value, password.value, context)
                     }
                 },
                 Modifier.padding(5.dp)
