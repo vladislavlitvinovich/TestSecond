@@ -16,6 +16,7 @@ import androidx.navigation.NavController
 import com.example.testsecond.navigation.NavRoutes
 import com.google.firebase.auth.FirebaseAuth
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import com.example.testsecond.authorization.fireReg
 
 @SuppressLint("UnrememberedMutableState")
@@ -43,15 +44,17 @@ fun Registration(navController: NavController) {
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text(text = "Логин")
+            Text(text = "Почта")
             TextField(value = login.value, onValueChange = { newText ->
                 login.value = newText
             }, Modifier.padding(5.dp))
             Text(text = "Пароль")
-            TextField(value = password.value, onValueChange = { newText ->
-                password.value = newText
+            TextField(value = password.value,
+                onValueChange = { newText ->
+                    password.value = newText
 
-            }, Modifier.padding(5.dp))
+                }, Modifier.padding(5.dp)
+            )
             Text(text = "Повторите пароль")
             TextField(value = password_repeat.value, onValueChange = { newText ->
                 password_repeat.value = newText

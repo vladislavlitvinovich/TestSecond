@@ -19,6 +19,9 @@ import androidx.navigation.NavController
 import com.example.testsecond.functions.PracticeAnswerDraw
 import com.example.testsecond.navigation.NavRoutes
 import com.example.testsecond.R
+import com.example.testsecond.functions.PracticeAnswerDraw1
+import com.example.testsecond.functions.PracticeAnswerDraw2
+import com.example.testsecond.functions.PracticeAnswerDraw3
 
 @Composable
 fun PracticeView(navController: NavController) {
@@ -54,23 +57,84 @@ fun PracticeView(navController: NavController) {
                 )
                 {
                     Text(
-                        text = "Практика 1",
+                        text = "Практическое задание",
                         textAlign = TextAlign.Center
                     )
                 }
             }
-            Card(
-                modifier = Modifier.fillMaxSize(0.8f)
+            Column(
+                modifier = Modifier
+                    .padding(5.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
             ) {
-                for (i: Int in 0..10) {
-                    Text(
-                        stringResource(id = R.string.practice_content1),
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier.padding(20.dp)
-                    )
+                Card(
+                ) {
+                    for (i: Int in 0..10) {
+                        Text(
+                            stringResource(id = R.string.practice_content1),
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.padding(20.dp)
+                        )
+                    }
                 }
+                PracticeAnswerDraw()
             }
-            PracticeAnswerDraw()
+            Column(
+                modifier = Modifier
+                    .padding(5.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Card(
+                ) {
+                    for (i: Int in 0..10) {
+                        Text(
+                            stringResource(id = R.string.practice_content2),
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.padding(20.dp)
+                        )
+                    }
+                }
+                PracticeAnswerDraw1()
+            }
+            Column(
+                modifier = Modifier
+                    .padding(5.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Card(
+                ) {
+                    for (i: Int in 0..10) {
+                        Text(
+                            stringResource(id = R.string.practice_content3),
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.padding(20.dp)
+                        )
+                    }
+                }
+                PracticeAnswerDraw2()
+            }
+            Column(
+                modifier = Modifier
+                    .padding(5.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Card(
+                ) {
+                    for (i: Int in 0..10) {
+                        Text(
+                            stringResource(id = R.string.practice_content4),
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.padding(20.dp)
+                        )
+                    }
+                }
+                PracticeAnswerDraw3()
+            }
+
         }
     }
 }

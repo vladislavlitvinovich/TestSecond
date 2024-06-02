@@ -20,12 +20,13 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.testsecond.ui.theme.TestSecondTheme
 import com.example.testsecond.navigation.NavRoutes
-import com.example.testsecond.screens.LectureView
-import com.example.testsecond.screens.Lectures
-import com.example.testsecond.screens.PracticeView
-import com.example.testsecond.screens.Registration
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.text.input.OffsetMapping
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.TransformedText
+import androidx.compose.ui.text.input.VisualTransformation
 import com.example.testsecond.authorization.fireAuth
+import com.example.testsecond.screens.*
 import com.google.firebase.FirebaseApp
 
 class MainActivity : ComponentActivity() {
@@ -63,7 +64,7 @@ fun toTheReg(context: ComponentActivity) {
             LectureView(navController = navController)
         }
         composable(NavRoutes.PracticeView.route) { PracticeView(navController = navController) }
-        composable(NavRoutes.Profile.route) { } // TODO
+        composable(NavRoutes.Profile.route) { ProfileView(navController = navController) } // TODO
         composable(NavRoutes.Search.route) { } // TODO
     }
 }
@@ -81,22 +82,24 @@ fun MainAuthorization(navController: NavController, context: ComponentActivity) 
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text(text = "Логин")
+            Text(text = "Почта")
             TextField(value = login.value, singleLine = true, onValueChange = { newText ->
                 login.value = newText
             })
             Text(text = "Пароль")
-            TextField(value = password.value, singleLine = true, onValueChange = { newText ->
-                password.value = newText
-            })
+            TextField(value = password.value,
+                visualTransformation = PasswordVisualTransformation(),
+                singleLine = true, onValueChange = { newText ->
+                    password.value = newText
+                })
             Button(onClick = {
-                if(login.value.isEmpty() || password.value.isEmpty()){
+                if (login.value.isEmpty() || password.value.isEmpty()) {
                     Toast.makeText(
                         context,
                         "Пожалуйста, заполните поля",
                         Toast.LENGTH_SHORT,
                     ).show()
-                } else{
+                } else {
                     fireAuth(login.value, password.value, context, navController)
                 }
             }) {
